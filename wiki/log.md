@@ -19,3 +19,7 @@
 ## [2026-11-22] ingest | 批次匯入 5 篇新貼文（itzy、yeji、lia、ryujin、chaeryeong）
 - 升級 `scripts/extract_mhtml.py`：支援無文字貼文（無 `<h1>`）精準鎖定彈窗範圍，以及 Reels 影片貼文自動擷取封面縮圖。
 - 匯入 `chaeryeong` (2026-11-21)、`itzy` (2026-11-19 Reels)、`yeji` (2026-11-14)、`ryujin` (2026-11-14)、`lia` (2026-11-08)，總計 6 篇全團齊全，已同步更新 `data/diary.js` 與全部 `wiki/` 檔案。
+
+## [2026-11-22] ingest | 批次匯入 26 篇新日記（經 Loop 1 人工審查核准）
+- 匯入 chaeryeong (+10)、itzy (+7)、yuna (+4，略過 1 筆重複)、ryujin (+2)、yeji (+2)、lia (+1)，全站總日記數更新至 32 篇。
+- 同步更新 `assets/images/`、`data/diary.js`、`wiki/members/*.md` 與 `wiki/index.md`。
