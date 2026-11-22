@@ -97,6 +97,9 @@
             <button type="button" class="switch-btn" data-view="timeline" role="tab" aria-selected="false">
               全員時間軸
             </button>
+            <button type="button" class="switch-btn" data-view="videos" role="tab" aria-selected="false">
+              近期影片
+            </button>
           </div>
           <div class="header-meta">
             <span id="total-count">0 篇日記</span>
@@ -172,6 +175,17 @@
         <div class="timeline-track" id="timeline-list"></div>
         <nav class="pagination hidden" id="timeline-pagination" aria-label="時間軸分頁"></nav>
       </section>
+
+      <section id="videos-view" class="hidden" aria-live="polite">
+        <div class="videos-header">
+          <div>
+            <h2 class="videos-heading">近期影片</h2>
+            <p class="videos-sub">追蹤 @ITZY 與 @JYPEntertainment 最新 5 支一般影片（排除 Shorts）</p>
+          </div>
+          <span class="videos-updated" id="videos-updated"></span>
+        </div>
+        <div class="videos-grid" id="videos-list"></div>
+      </section>
     </main>
 
     <div class="lightbox hidden" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大檢視">
@@ -187,6 +201,7 @@
     <div id="yt-player-host" class="yt-player-host" aria-hidden="true"></div>
 
     <script src="data/music.js"></script>
+    <script src="data/videos.js"></script>
     <script src="data/diary.js"></script>
     <script src="app.js"></script>
   </body>

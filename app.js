@@ -5,8 +5,12 @@
   const data = window.DIARY_DATA || { updatedAt: '—', members: [], entries: [] };
   const memberMap = new Map(data.members.map((m) => [m.id, m]));
 
+  const filterBarEl = document.querySelector('.filter-bar');
   const membersViewEl = document.getElementById('members-view');
   const timelineViewEl = document.getElementById('timeline-view');
+  const videosViewEl = document.getElementById('videos-view');
+  const videosListEl = document.getElementById('videos-list');
+  const videosUpdatedEl = document.getElementById('videos-updated');
   const galleryEl = document.getElementById('member-gallery');
   const panelEl = document.getElementById('diary-panel');
   const panelAccentEl = document.getElementById('panel-accent');
@@ -517,24 +521,96 @@
     timelinePage = 1;
   }
 
+  function renderVideos() {
+    const videosData = window.VIDEOS_DATA || { updatedAt: '', videos: [] };
+    const list = Array.isArray(videosData.videos) ? videosData.videos : [];
+
+    if (videosUpdatedEl) {
+      videosUpdatedEl.textContent = videosData.updatedAt ? `最後同步 ${videosData.updatedAt}` : '';
+    }
+
+    videosListEl.innerHTML = '';
+
+    if (list.length === 0) {
+      videosListEl.innerHTML = `
+        <div class="empty-state">
+          尚無近期影片資料。執行 <code>python scripts/fetch_videos.py</code> 或觸發 GitHub Actions 即可同步。
+        </div>
+      `;
+      return;
+    }
+
+    list.forEach((video) => {
+      const card = document.createElement('article');
+      card.className = 'video-card';
+
+      const memberBadgesHtml = (video.members && video.members.length ? video.members : ['itzy'])
+        .map((mid) => {
+          const m = memberMap.get(mid);
+          if (!m) return `<span class="video-member-badge">${escapeHtml(mid)}</span>`;
+          const label = m.id === 'itzy' ? 'ITZY 全員' : `${m.name} ${m.zhName}`;
+          return `<span class="video-member-badge" style="--badge-color: ${escapeAttr(m.accent)}">${escapeHtml(label)}</span>`;
+        })
+        .join('');
+
+      const sourceLabel = video.memberSource === 'gemini-video' ? 'AI 影片辨識' : '';
+
+      card.innerHTML = `
+        <div class="video-meta-rows">
+          <a class="video-title-link" href="${escapeAttr(video.url)}" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(video.title)}
+          </a>
+          <div class="video-info-line">
+            <span class="video-channel-badge">${escapeHtml(video.channelHandle || video.channelName || 'YouTube')}</span>
+            <time>發佈時間：${escapeHtml(video.publishedAt || video.publishedDate || '—')}</time>
+          </div>
+          <div class="video-members-row">
+            <span class="video-members-label">參與成員：</span>
+            ${memberBadgesHtml}
+            ${sourceLabel ? `<span class="video-source-hint">${sourceLabel}</span>` : ''}
+          </div>
+        </div>
+        <div class="video-embed-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/${encodeURIComponent(video.videoId)}"
+            title="${escapeAttr(video.title)}"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      `;
+
+      videosListEl.appendChild(card);
+    });
+  }
+
   function renderAll() {
     const isMembers = currentView === 'members';
+    const isTimeline = currentView === 'timeline';
+    const isVideos = currentView === 'videos';
+
+    filterBarEl.classList.toggle('hidden', isVideos);
     resetFiltersBtn.classList.toggle('hidden', !hasActiveFilters());
 
     tagSelect.classList.toggle('hidden', !isMembers);
     dockToggleBtn.classList.toggle('hidden', !isMembers);
-    memberDropdownEl.classList.toggle('hidden', isMembers);
+    memberDropdownEl.classList.toggle('hidden', !isTimeline);
+
+    membersViewEl.classList.toggle('hidden', !isMembers);
+    timelineViewEl.classList.toggle('hidden', !isTimeline);
+    videosViewEl.classList.toggle('hidden', !isVideos);
 
     if (isMembers) {
       closeMemberDropdown();
-      membersViewEl.classList.remove('hidden');
-      timelineViewEl.classList.add('hidden');
       renderGallery();
       renderDiaryPanel();
-    } else {
-      membersViewEl.classList.add('hidden');
-      timelineViewEl.classList.remove('hidden');
+    } else if (isTimeline) {
       renderTimeline();
+    } else if (isVideos) {
+      closeMemberDropdown();
+      renderVideos();
     }
   }
 
