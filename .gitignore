@@ -1,0 +1,7 @@
+# 保護隱私與控制 repo 體積：IG 另存完整網頁可能包含個人登入資訊與大量雜訊檔
+raw/*
+!raw/**/.gitkeep
+
+.DS_Store
+Thumbs.db
+node_modules/

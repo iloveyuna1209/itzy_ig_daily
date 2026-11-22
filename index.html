@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ITZY 的日常 — Visual IG Diary</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-canvas" aria-hidden="true">
+      <div class="bg-photo"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div>
+          <p class="eyebrow">LLM WIKI · VISUAL ARCHIVE</p>
+          <h1>ITZY 的日常</h1>
+        </div>
+        <div class="header-right">
+          <button
+            type="button"
+            class="bg-preview-btn"
+            id="bg-preview-btn"
+            title="查看背景原圖"
+            aria-label="查看背景原圖"
+          >
+            <img src="assets/icons/itzy-logo.png" alt="ITZY 背景原圖" />
+          </button>
+          <div class="view-switch" role="tablist" aria-label="檢視模式">
+            <button type="button" class="switch-btn active" data-view="members" role="tab" aria-selected="true">
+              成員區塊
+            </button>
+            <button type="button" class="switch-btn" data-view="timeline" role="tab" aria-selected="false">
+              全員時間軸
+            </button>
+          </div>
+          <div class="header-meta">
+            <span id="total-count">0 篇日記</span>
+            <span class="dot">·</span>
+            <span id="updated-at">最後更新 —</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="filter-bar" aria-label="搜尋與篩選">
+        <input
+          type="search"
+          id="search-input"
+          class="filter-input"
+          placeholder="搜尋韓文、繁中內文或標籤..."
+          aria-label="關鍵字搜尋"
+        />
+        <div class="date-range">
+          <input type="date" id="date-from" class="filter-date" aria-label="起始日期" />
+          <span class="date-sep">–</span>
+          <input type="date" id="date-to" class="filter-date" aria-label="結束日期" />
+        </div>
+
+        <select id="tag-select" class="filter-select" aria-label="標籤篩選">
+          <option value="">全部標籤</option>
+        </select>
+
+        <div class="member-dropdown hidden" id="member-dropdown">
+          <button
+            type="button"
+            class="filter-select member-dropdown-trigger"
+            id="member-dropdown-trigger"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+          >
+            <span id="member-dropdown-label">全部成員</span>
+            <span class="dropdown-caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="member-dropdown-menu hidden" id="member-dropdown-menu" role="listbox" aria-multiselectable="true"></div>
+        </div>
+
+        <button type="button" id="reset-filters" class="reset-btn hidden">清除條件</button>
+
+        <button type="button" id="dock-toggle-btn" class="dock-toggle-btn" aria-pressed="false" title="將成員卡片收合至左側">
+          <span id="dock-toggle-icon" aria-hidden="true">◧</span>
+          <span id="dock-toggle-text">收合至左側</span>
+        </button>
+      </section>
+
+      <section id="members-view" class="members-stage">
+        <div class="gallery-grid" id="member-gallery" aria-label="團體與成員區塊"></div>
+
+        <section class="diary-panel hidden" id="diary-panel" aria-live="polite">
+          <div class="diary-panel-header">
+            <div class="member-heading">
+              <span class="accent-bar" id="panel-accent"></span>
+              <div>
+                <h2 id="panel-title"></h2>
+                <p id="panel-handle" class="handle"></p>
+              </div>
+            </div>
+            <button type="button" class="close-btn" id="close-panel">收合</button>
+          </div>
+
+          <div class="diary-list" id="diary-list"></div>
+          <nav class="pagination hidden" id="diary-pagination" aria-label="日記分頁"></nav>
+        </section>
+      </section>
+
+      <section id="timeline-view" class="hidden" aria-live="polite">
+        <div class="timeline-track" id="timeline-list"></div>
+        <nav class="pagination hidden" id="timeline-pagination" aria-label="時間軸分頁"></nav>
+      </section>
+    </main>
+
+    <div class="lightbox hidden" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大檢視">
+      <button type="button" class="lb-close" id="lb-close" aria-label="關閉">×</button>
+      <button type="button" class="lb-nav lb-prev" id="lb-prev" aria-label="上一張">‹</button>
+      <figure class="lb-figure">
+        <img id="lb-img" src="" alt="圖片放大檢視" />
+        <figcaption id="lb-caption"></figcaption>
+      </figure>
+      <button type="button" class="lb-nav lb-next" id="lb-next" aria-label="下一張">›</button>
+    </div>
+
+    <script src="data/diary.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
