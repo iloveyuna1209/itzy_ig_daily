@@ -13,9 +13,72 @@
 
     <header class="site-header">
       <div class="header-inner">
-        <div>
-          <p class="eyebrow">LLM WIKI · VISUAL ARCHIVE</p>
-          <h1>ITZY 的日常</h1>
+        <div class="brand-row">
+          <div>
+            <p class="eyebrow">LLM WIKI · VISUAL ARCHIVE</p>
+            <h1>ITZY 的日常</h1>
+          </div>
+
+          <div class="music-anchor" id="music-anchor">
+            <button
+              type="button"
+              class="vinyl-btn"
+              id="vinyl-toggle-btn"
+              title="展開音樂播放器"
+              aria-label="展開音樂播放器"
+              aria-expanded="false"
+            >
+              <span class="vinyl-spinner" id="vinyl-spinner">
+                <img class="vinyl-disc" src="assets/icons/vinyl-disc.png" alt="" />
+                <span class="vinyl-center-cover" id="vinyl-center-cover"></span>
+                <span class="vinyl-spindle" aria-hidden="true"></span>
+              </span>
+            </button>
+
+            <aside class="music-popover hidden" id="music-popover" aria-label="迷你音樂播放器">
+              <div class="music-grid">
+                <div class="music-info-col">
+                  <p class="music-kicker">NOW PLAYING</p>
+                  <h3 class="music-title" id="music-title">—</h3>
+                  <p class="music-artist" id="music-artist">—</p>
+                  <p class="music-date" id="music-date">—</p>
+                  <p class="music-status hidden" id="music-status"></p>
+                  <div class="music-playlist hidden" id="music-playlist" aria-label="歌單列表"></div>
+                </div>
+
+                <div class="music-media-col">
+                  <div class="music-cover-box" id="music-cover-box">
+                    <img id="music-cover-img" class="hidden" src="" alt="歌曲封面" />
+                    <span class="music-cover-fallback" id="music-cover-fallback">♪</span>
+                  </div>
+
+                  <div class="music-controls-box">
+                    <div class="music-btn-row">
+                      <button type="button" class="music-ctrl-btn" id="music-prev-btn" title="上一首" aria-label="上一首">⏮</button>
+                      <button type="button" class="music-ctrl-btn music-play-btn" id="music-play-btn" title="播放 / 暫停" aria-label="播放或暫停">▶</button>
+                      <button type="button" class="music-ctrl-btn" id="music-next-btn" title="下一首" aria-label="下一首">⏭</button>
+                    </div>
+                    <div class="music-progress-wrap">
+                      <input
+                        type="range"
+                        id="music-progress"
+                        class="music-progress"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="0"
+                        aria-label="歌曲進度條"
+                      />
+                      <div class="music-time-row">
+                        <span id="music-time-cur">0:00</span>
+                        <span id="music-time-dur">0:00</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
         <div class="header-right">
           <button
@@ -121,6 +184,9 @@
       <button type="button" class="lb-nav lb-next" id="lb-next" aria-label="下一張">›</button>
     </div>
 
+    <div id="yt-player-host" class="yt-player-host" aria-hidden="true"></div>
+
+    <script src="data/music.js"></script>
     <script src="data/diary.js"></script>
     <script src="app.js"></script>
   </body>
