@@ -45,25 +45,33 @@ ITZY的日常/
 
 ## 3. 核心操作（Operations）
 
-### A. Ingest（匯入新貼文）
-當使用者於 `raw/<member>/` 放入瀏覽器「另存新檔 → 網頁，單一檔案（`.mhtml`）」或「網頁，完整（`.html` + `*_files/`）」並要求解析時：
-1. **優先用腳本預處理**（絕不修改 `raw/` 內容）：
-   - 若為 `.mhtml`：執行 `python scripts/extract_mhtml.py <mhtml_path> <member_id>`（**有抓到幾張就全留，不加 `--first-only`**），自動抽取 `postUrl`、`date`（轉 `UTC+8`）、`originalText`、`mediaType` 並將正文圖片輸出至 `assets/images/<member>/`。
-2. **擷取與補齊欄位**：
-   - `date`：貼文發布日期（`YYYY-MM-DD`），優先取 `<time datetime="...">` 或 meta 資訊。
-   - `postUrl`：原始 IG 貼文連結（如 `https://www.instagram.com/p/.../` 或 `/reel/.../`）。
-   - `mediaType`：`'image'` | `'carousel'` | `'video'`（Reels 或影片貼文）。
-   - `originalText`：原始韓文（或混合英文）內文，保留換行、Hashtag 與 Emoji。
-   - `translatedText`：流暢自然的**繁體中文**翻譯（保留語氣、梗與 Emoji，不直譯硬翻）。
-   - `images`：從對應 `*_files/` 篩選出該貼文的正文照片/影片封面縮圖（排除頭像、側邊推薦圖與 UI icon），複製並命名至 `assets/images/<member>/<YYYY-MM-DD>_<id>_01.<ext>`。
-   - `sourceFile`：對應的 `raw/<member>/...` 檔名（僅供本機溯源，不暴露個人路徑）。
-   - `tags`：自動標記 2–4 個關鍵標籤（如 `回歸`、`日常`、`私服`、`演唱會`、`Reels`）。
-3. **寫入與同步**：
+### A. Ingest（匯入新貼文 — 含 Human-in-the-Loop 人工審查）
+當使用者於 `raw/<member>/` 放入瀏覽器「另存新檔 → 網頁，單一檔案（`.mhtml`）」或「網頁，完整（`.html` + `*_files/`）」並要求解析時，**嚴格遵守兩階段審查迴圈（Preview → Approve → Commit）**：
+
+#### Stage 1：預處理與待寫入預覽（不可直接寫入網頁）
+1. **先跑 dry-run 預處理**（絕不修改 `raw/` 內容，也暫不寫入 `data/diary.js` 與 `wiki/`）：
+   - 若為 `.mhtml`：執行 `python scripts/extract_mhtml.py <mhtml_path> <member_id> --dry-run`（**有抓到幾張就全留，不加 `--first-only`**），抽取 `postUrl`、`date`（轉 `UTC+8`）、`originalText`、`mediaType` 與預計抽出的圖片張數。
+2. **產生翻譯與標籤草案**：
+   - 依原始韓文/英文內文產出自然流暢的**繁體中文**翻譯（保留語氣、梗與 Emoji，不直譯硬翻）與 2–4 個關鍵標籤。
+3. **【Human-in-the-Loop 審查點】陳列待寫入清單並等待確認**：
+   - 逐筆向使用者條列展示：
+     - **預計寫入區塊**：目標成員區塊（如 `YUNA 有娜` / `ITZY 全員`）+ `全員時間軸`
+     - **基本欄位**：`date`、`mediaType`、`postUrl`、預計抽出圖片張數與檔名
+     - **雙語內文**：`originalText` vs `translatedText`、`tags`
+   - **暫停並等待使用者確認**：
+     - 若使用者要求微調（改翻譯、改標籤、改目標成員、增減圖片）→ 修正草案並再次確認（Loop）。
+     - 若使用者確認無誤（核准）→ 進入 Stage 2。
+
+#### Stage 2：正式寫入、Lint 檢查與推送
+1. **正式抽出圖片**：執行 `python scripts/extract_mhtml.py <mhtml_path> <member_id>` 輸出至 `assets/images/<member>/<YYYY-MM-DD>_<id>_01.<ext>`。
+2. **寫入與同步**：
    - 更新 `data/diary.js`（依 `date` 新到舊排序；同 `postUrl` 或同 `id` 不可重複寫入）。
    - 若該成員尚無 `coverImage` 或新貼文為最新，前端會自動取最新一筆貼文首圖作為卡片預覽（亦可手動指定 `member.coverImage`）。
    - 更新對應的 `wiki/members/<member>.md`（新增日記摘要、更新最新動態）。
    - 更新 `wiki/index.md`（更新貼文計數與最新索引）。
    - 追加一筆紀錄至 `wiki/log.md`：`## [YYYY-MM-DD] ingest | <member> - <簡短標題>`。
+3. **【Pre-Push Lint Loop】發布前健康檢查**：
+   - 確認 `data/diary.js` 與 `wiki/members/*.md` 筆數一致、無斷圖、`git status` 確認 `raw/` 未被追蹤；全數通過才 `git commit & push`。
 
 ### B. Query（查詢與彙整）
 - 先讀 `wiki/index.md` 定位相關成員或時間區間，再讀取對應檔案回答問題。
