@@ -70,17 +70,22 @@ ITZY的日常/
    - 更新對應的 `wiki/members/<member>.md`（新增日記摘要、更新最新動態）。
    - 更新 `wiki/index.md`（更新貼文計數與最新索引）。
    - 追加一筆紀錄至 `wiki/log.md`：`## [YYYY-MM-DD] ingest | <member> - <簡短標題>`。
-3. **【Pre-Push Lint Loop】發布前健康檢查**：
-   - 確認 `data/diary.js` 與 `wiki/members/*.md` 筆數一致、無斷圖、`git status` 確認 `raw/` 未被追蹤；全數通過才 `git commit & push`。
+3. **【Loop 4｜Pre-Push Lint Loop】發布前健康檢查**：
+   - 推送前強制執行 `python scripts/lint_project.py`，確認 `data/diary.js`、`data/music.js`、`data/videos.js` 語法合法、無重複貼文、無斷圖、`wiki/` 筆數一致、且 `raw/` 零隱私檔被追蹤；全數通過（`passed: true`）才 `git commit & push`。
 
-### B. Query（查詢與彙整）
+### B. 近期影片同步（Loop 2｜GitHub PR 審查迴圈）
+- 由 `.github/workflows/update-videos.yml` 每天台灣時間 `12:00` 執行 `scripts/fetch_videos.py` 抓取 `@ITZY` 與 `@JYPEntertainment` 最新 5 支長影片（排除 Shorts），並以 `gemini-3.8-flash` 辨識參與成員。
+- 有新影片時自動推送至 `chore/update-videos` 分支並開立/更新 **Pull Request**（附 5 支影片與成員辨識結果表格），由使用者人工確認後 Merge 上線；若辨識有誤，於 PR 修正 `members` 並將 `memberSource` 改為 `"manual"` 鎖定。
+
+### C. 黑膠歌單更新（Loop 3｜歌曲預檢與確認迴圈）
+- 新增歌曲至 `data/music.js` 前，先執行 `python scripts/check_music.py <youtube_url> --cover <cover_path>` 驗證 YouTube 嵌入權限、歌名、歌手、發行日與封面圖存在，向使用者陳列預覽確認後再寫入並執行 Loop 4 Lint。
+
+### D. Query（查詢與彙整）
 - 先讀 `wiki/index.md` 定位相關成員或時間區間，再讀取對應檔案回答問題。
 - 有價值的跨成員彙整可存成 `wiki/topics/<topic>.md` 並登錄至 `wiki/index.md`。
 
-### C. Lint（健康檢查）
-- 檢查 `data/diary.js` 與 `wiki/members/*.md` 筆數是否一致。
-- 檢查 `assets/images/` 是否有斷圖或孤兒檔案。
-- 檢查部署前 `git status` 確認 `raw/` 沒有被意外追蹤。
+### E. Lint（健康檢查）
+- 直接執行 `python scripts/lint_project.py` 一鍵驗證資料結構、斷圖、孤兒圖檔、Wiki 一致性與 `raw/` 隱私防線。
 
 ## 4. `data/diary.js` 資料結構
 

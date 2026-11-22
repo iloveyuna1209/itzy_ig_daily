@@ -1,13 +1,14 @@
-name: Update Recent YouTube Videos
+name: Update Recent YouTube Videos (PR Review Loop)
 
 on:
   schedule:
-    # 每天台灣時間 12:00 (UTC 04:00) 自動抓取最新 5 支長影片
+    # 每天台灣時間 12:00 (UTC 04:00) 自動抓取最新 5 支長影片並建立審查 PR
     - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-videos:
@@ -15,20 +16,72 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Fetch latest ITZY YouTube videos & identify members
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python3 scripts/fetch_videos.py
 
-      - name: Commit & push if changed
+      - name: Check for changes
+        id: diff
         run: |
+          if git diff --quiet data/videos.js; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build PR review summary
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          python3 - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          raw = Path('data/videos.js').read_text(encoding='utf-8')
+          m = re.search(r'window\.VIDEOS_DATA\s*=\s*(\{.*\})\s*;?\s*$', raw, flags=re.S)
+          data = json.loads(m.group(1))
+
+          lines = [
+              '## Loop 2｜近期影片更新人工審查',
+              '',
+              f"> 同步時間：`{data.get('updatedAt', '')}`",
+              '',
+              '請確認以下最新 5 支長影片的**參與成員**辨識是否正確：',
+              '- 若無誤：直接點 **Merge pull request** 即可自動上線。',
+              '- 若有誤判：可直接在此 PR 編輯 `data/videos.js` 修改 `members`，並將該筆 `memberSource` 改為 `"manual"`（下次自動更新就會鎖定不覆蓋）。',
+              '',
+              '| 發佈時間 | 頻道 | 影片名稱 | 辨識成員 | 來源 |',
+              '| --- | --- | --- | --- | --- |',
+          ]
+          for v in data.get('videos', []):
+              members = ', '.join(v.get('members', []))
+              title = v.get('title', '').replace('|', '\\|')
+              lines.append(
+                  f"| {v.get('publishedAt', '')} | {v.get('channelHandle', '')} | [{title}]({v.get('url', '')}) | `{members}` | `{v.get('memberSource', '')}` |"
+              )
+          Path('pr_body.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+
+      - name: Push branch & open/update review PR
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="chore/update-videos"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
           git add data/videos.js
-          if git diff --cached --quiet; then
-            echo "No changes to data/videos.js"
+          git commit -m "chore(videos): 更新最新 5 支 ITZY 近期影片（待審查）"
+          git push -f origin "$BRANCH"
+
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING_PR" ]; then
+            gh pr edit "$EXISTING_PR" --title "chore(videos): 近期影片更新審查（最新 5 支）" --body-file pr_body.md
           else
-            git commit -m "chore(videos): 自動更新最新 5 支 ITZY 近期影片"
-            git push
+            gh pr create --base main --head "$BRANCH" --title "chore(videos): 近期影片更新審查（最新 5 支）" --body-file pr_body.md
           fi
+          rm -f pr_body.md
