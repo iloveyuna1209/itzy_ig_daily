@@ -169,7 +169,8 @@ def identify_members_with_gemini(video: dict) -> tuple[list[str], str]:
         '請只回傳純 JSON，格式：{"members": ["yeji", ...]}'
     )
 
-    endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}'
+    model = os.environ.get('GEMINI_MODEL', 'gemini-3.8-flash').strip() or 'gemini-3.8-flash'
+    endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}'
     payload = json.dumps(
         {
             'contents': [
