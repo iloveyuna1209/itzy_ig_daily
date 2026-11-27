@@ -1,6 +1,45 @@
 window.VIDEOS_DATA = {
-  "updatedAt": "2026-11-25 21:42",
+  "updatedAt": "2026-11-27 21:17",
   "videos": [
+    {
+      "videoId": "c0ft5iPAQPM",
+      "title": "럽식 4일 l CHAERYEONG \"Lovesick\" BEHIND #1",
+      "channelName": "ITZY",
+      "channelHandle": "@ITZY",
+      "publishedAt": "2026-11-27 17:59",
+      "publishedDate": "2026-11-27",
+      "url": "https://www.youtube.com/watch?v=c0ft5iPAQPM",
+      "members": [
+        "chaeryeong"
+      ],
+      "memberSource": "keyword"
+    },
+    {
+      "videoId": "0o6xmNwixcY",
+      "title": "CHAERYEONG \"Lovesick\" Challenge BEHIND | #LovesickChallenge",
+      "channelName": "ITZY",
+      "channelHandle": "@ITZY",
+      "publishedAt": "2026-11-26 18:00",
+      "publishedDate": "2026-11-26",
+      "url": "https://www.youtube.com/watch?v=0o6xmNwixcY",
+      "members": [
+        "chaeryeong"
+      ],
+      "memberSource": "keyword"
+    },
+    {
+      "videoId": "kvB2qsGAaKc",
+      "title": "[Harvestrip] Report_1 | We can’t just end it here",
+      "channelName": "ITZY",
+      "channelHandle": "@ITZY",
+      "publishedAt": "2026-11-26 17:00",
+      "publishedDate": "2026-11-26",
+      "url": "https://www.youtube.com/watch?v=kvB2qsGAaKc",
+      "members": [
+        "itzy"
+      ],
+      "memberSource": "keyword"
+    },
     {
       "videoId": "umm3FmL7wxQ",
       "title": "[ITZY?ITZY!] EP 277 | KGMA (Korea Grand Music Awards)",
@@ -22,45 +61,6 @@ window.VIDEOS_DATA = {
       "publishedAt": "2026-11-23 17:00",
       "publishedDate": "2026-11-23",
       "url": "https://www.youtube.com/watch?v=u3v-Jx_bNa4",
-      "members": [
-        "chaeryeong"
-      ],
-      "memberSource": "keyword"
-    },
-    {
-      "videoId": "Gf15OdrFj8M",
-      "title": "CHAERYEONG “Lovesick” Dance Practice (Winter Ver.) (4K)",
-      "channelName": "ITZY",
-      "channelHandle": "@ITZY",
-      "publishedAt": "2026-11-22 17:00",
-      "publishedDate": "2026-11-22",
-      "url": "https://www.youtube.com/watch?v=Gf15OdrFj8M",
-      "members": [
-        "chaeryeong"
-      ],
-      "memberSource": "keyword"
-    },
-    {
-      "videoId": "GNBFtWEaGxs",
-      "title": "[TOUR-LOG] EP14 (FINAL) #ITZY #SINGAPORE | ITZY 3RD WORLD TOUR ‘TUNNEL VISION’",
-      "channelName": "ITZY",
-      "channelHandle": "@ITZY",
-      "publishedAt": "2026-11-20 14:59",
-      "publishedDate": "2026-11-20",
-      "url": "https://www.youtube.com/watch?v=GNBFtWEaGxs",
-      "members": [
-        "itzy"
-      ],
-      "memberSource": "keyword"
-    },
-    {
-      "videoId": "QvG0FcuT14E",
-      "title": "CHAERYEONG 'Lovesick' Dance Practice BEHIND",
-      "channelName": "ITZY",
-      "channelHandle": "@ITZY",
-      "publishedAt": "2026-11-19 19:00",
-      "publishedDate": "2026-11-19",
-      "url": "https://www.youtube.com/watch?v=QvG0FcuT14E",
       "members": [
         "chaeryeong"
       ],
