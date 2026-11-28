@@ -4,8 +4,8 @@ name: YUNA
 koName: 유나
 zhName: 有娜
 handle: "@igotyuandme"
-postCount: 5
-lastUpdated: 2026-11-22
+postCount: 8
+lastUpdated: 2026-11-28
 ---
 
 # YUNA 有娜 (유나)
@@ -15,6 +15,9 @@ lastUpdated: 2026-11-22
 
 ## 近期動態摘要
 
+- **2026-11-27**：分享海島渡假、草莓飲品與悠閒美食日常（🍃😌🌈🥣🤤🫐🍓🩵🌥️）。
+- **2026-11-25**：分享陽光燦爛心情很好的一天☀️。
+- **2026-11-25**：分享日常穿搭照（無文字貼文）。
 - **2026-11-12**：分享禮服／洋裝造型美照（♥️）。
 - **2026-11-11**：分享與韓國服飾品牌 Treemingbird（`@treemingbird_official`）合作的冬日暖呼呼穿搭照（「폭닥폭닥」）。
 - **2026-11-06**：分享日常照片（無文字貼文）。
@@ -23,6 +26,9 @@ lastUpdated: 2026-11-22
 
 ## 日記索引
 
+- **[2026-11-27]** 分享海島渡假、草莓飲品與悠閒美食日常（🍃😌🌈🥣🤤🫐🍓🩵🌥️）。 — 3 張圖 · [原貼文](https://www.instagram.com/p/DgPPliMEo60/) · 標籤：`#日常` `#渡假` `#美食`
+- **[2026-11-25]** 分享陽光燦爛心情很好的一天☀️。 — 3 張圖 · [原貼文](https://www.instagram.com/p/DgKSJ_OEhJk/) · 標籤：`#日常` `#晴天`
+- **[2026-11-25]** 分享日常穿搭照（無文字貼文）。 — 3 張圖 · [原貼文](https://www.instagram.com/p/DgKNKuekvpH/) · 標籤：`#日常` `#穿搭`
 - **[2026-11-12]** 分享禮服／洋裝造型美照（♥️）。 — 2 張圖 · [原貼文](https://www.instagram.com/p/Dfo6chQmoOd/) · 標籤：`#日常` `#私服`
 - **[2026-11-11]** 分享與韓國服飾品牌 Treemingbird（`@treemingbird_official`）合作的冬日暖呼呼穿搭照（「폭닥폭닥」）。 — 3 張圖 · [原貼文](https://www.instagram.com/p/DflriwBCTrm/) · 標籤：`#廣告合作` `#穿搭` `#冬日`
 - **[2026-11-06]** 分享日常照片（無文字貼文）。 — 2 張圖 · [原貼文](https://www.instagram.com/p/DfZmBoFGuRS/) · 標籤：`#日常` `#私服`

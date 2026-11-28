@@ -23,3 +23,7 @@
 ## [2026-11-22] ingest | 批次匯入 26 篇新日記（經 Loop 1 人工審查核准）
 - 匯入 chaeryeong (+10)、itzy (+7)、yuna (+4，略過 1 筆重複)、ryujin (+2)、yeji (+2)、lia (+1)，全站總日記數更新至 32 篇。
 - 同步更新 `assets/images/`、`data/diary.js`、`wiki/members/*.md` 與 `wiki/index.md`。
+
+## [2026-11-28] ingest | 批次匯入 6 篇新日記（chaeryeong、lia、yuna）
+- 升級 `scripts/extract_mhtml.py`：支援獨立貼文頁 `.mhtml`（無 `<article>`/`<h1>` 時從開頭至 `更多「` 範圍抽圖，並支援從 `og:description` 解析內文與取最早 `<time>` 避免留言覆蓋時間）。
+- 匯入 chaeryeong (+2)、lia (+1)、yuna (+3)，全站總日記數更新至 38 篇，已同步更新 `assets/images/`、`data/diary.js`、`wiki/members/*.md` 與 `wiki/index.md`。

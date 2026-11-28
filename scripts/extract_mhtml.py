@@ -49,7 +49,7 @@ def strip_html_text(raw_html: str) -> str:
 
 
 def extract_post_scope(full_html: str) -> str:
-    """Narrow HTML to the active post modal (role=dialog) or <article>."""
+    """Narrow HTML to the active post modal (role=dialog), <article>, or standalone post."""
     h1_pos = full_html.find('<h1')
     search_end = h1_pos if h1_pos != -1 else len(full_html)
 
@@ -57,15 +57,29 @@ def extract_post_scope(full_html: str) -> str:
     dialog_pos = full_html.rfind('role="dialog"', 0, search_end)
     start = max(article_pos, dialog_pos)
     if start == -1:
-        start = max(0, search_end - 60000)
+        # Standalone post page has no <article> or role="dialog"; start from 0 when no <h1>
+        start = max(0, search_end - 60000) if h1_pos != -1 else 0
 
     end = len(full_html)
     anchor = h1_pos if h1_pos != -1 else start
-    for marker in ('</article>', '更多來自', 'More posts from'):
+    for marker in ('</article>', '更多來自', '更多「', 'More posts from'):
         idx = full_html.find(marker, anchor)
         if idx != -1 and idx < end:
             end = idx
     return full_html[start:end]
+
+
+def extract_og_caption(full_html: str) -> str:
+    """Fallback caption extraction from og:description meta tag for standalone post pages."""
+    m = re.search(r'<meta[^>]+property="og:description"[^>]+content="([^"]*)"', full_html, flags=re.I)
+    if not m:
+        return ''
+    desc = html_lib.unescape(m.group(1)).strip()
+    cap_match = re.match(r'^.*? - \s*\S+ (?:於|on) [A-Za-z]+ \d+, \d{4}\s*:\s*"(.*)"\.?$', desc, flags=re.S)
+    if not cap_match:
+        return ''
+    lines = [line.rstrip() for line in cap_match.group(1).splitlines()]
+    return '\n'.join(lines).strip()
 
 
 def is_post_image(url: str, content_type: str, size: int) -> bool:
@@ -105,13 +119,13 @@ def parse_mhtml(mhtml_path: Path, member_id: str, first_only: bool, dry_run: boo
 
     scope_html = extract_post_scope(main_html)
 
-    # Extract caption from <h1>
+    # Extract caption from <h1>, fallback to og:description for standalone post pages
     h1_match = re.search(r'<h1[^>]*>(.*?)</h1>', scope_html, flags=re.S | re.I)
-    original_text = strip_html_text(h1_match.group(1)) if h1_match else ''
+    original_text = strip_html_text(h1_match.group(1)) if h1_match else extract_og_caption(main_html)
 
-    # Extract timestamp (first <time> inside post scope)
-    time_match = re.search(r'<time[^>]*datetime="([^"]+)"', scope_html)
-    timestamp_utc = time_match.group(1) if time_match else ''
+    # Extract timestamp (earliest <time> inside post scope so comments don't override captionless posts)
+    all_times = re.findall(r'<time[^>]*datetime="([^"]+)"', scope_html)
+    timestamp_utc = min(all_times) if all_times else ''
     post_date = ''
     if timestamp_utc:
         dt = datetime.fromisoformat(timestamp_utc.replace('Z', '+00:00'))

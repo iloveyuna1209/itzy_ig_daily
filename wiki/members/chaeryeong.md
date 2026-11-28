@@ -4,8 +4,8 @@ name: CHAERYEONG
 koName: 채령
 zhName: 彩領
 handle: "@chaerrry0"
-postCount: 11
-lastUpdated: 2026-11-22
+postCount: 13
+lastUpdated: 2026-11-28
 ---
 
 # CHAERYEONG 彩領 (채령)
@@ -15,6 +15,8 @@ lastUpdated: 2026-11-22
 
 ## 近期動態摘要
 
+- **2026-11-27**：與 `@sosoeazy.official` 合作分享穿搭日常（🌸🌼）。
+- **2026-11-24**：與服飾品牌 RAIVE 合作分享冬日大衣時尚穿搭照（`#ad #raive`）。
 - **2026-11-21**：分享日常私服照（無文字貼文）。
 - **2026-11-20**：分享日常私服照（🍀）。
 - **2026-11-19**：分享日常私服照（🔔）。
@@ -29,6 +31,8 @@ lastUpdated: 2026-11-22
 
 ## 日記索引
 
+- **[2026-11-27]** 與 `@sosoeazy.official` 合作分享穿搭日常（🌸🌼）。 — 2 張圖 · [原貼文](https://www.instagram.com/p/DgOxdtVExVL/) · 標籤：`#日常` `#合作` `#穿搭`
+- **[2026-11-24]** 與服飾品牌 RAIVE 合作分享冬日大衣時尚穿搭照（`#ad #raive`）。 — 3 張圖 · [原貼文](https://www.instagram.com/p/DgHC--Yn4MK/) · 標籤：`#時尚` `#穿搭` `#合作`
 - **[2026-11-21]** 分享日常私服照（無文字貼文）。 — 2 張圖 · [原貼文](https://www.instagram.com/p/Df_Lbgajmwm/) · 標籤：`#日常` `#私服`
 - **[2026-11-20]** 分享日常私服照（🍀）。 — 2 張圖 · [原貼文](https://www.instagram.com/p/Df8l-1zH2hG/) · 標籤：`#日常` `#私服`
 - **[2026-11-19]** 分享日常私服照（🔔）。 — 2 張圖 · [原貼文](https://www.instagram.com/p/Df6-QH9H70Z/) · 標籤：`#日常` `#私服`

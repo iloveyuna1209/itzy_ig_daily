@@ -1,5 +1,5 @@
 window.DIARY_DATA = {
-  "updatedAt": "2026-11-22",
+  "updatedAt": "2026-11-28",
   "members": [
     {
       "id": "itzy",
@@ -63,6 +63,123 @@ window.DIARY_DATA = {
     }
   ],
   "entries": [
+    {
+      "id": "yuna-2026-11-27-DgPPliMEo60",
+      "memberId": "yuna",
+      "date": "2026-11-27",
+      "mediaType": "carousel",
+      "originalText": "🍃\n\n😌\n\n🌈\n\n🥣\n\n🤤\n\n🫐🍓🩵\n\n🌥️",
+      "translatedText": "🍃\n\n😌\n\n🌈\n\n🥣\n\n🤤\n\n🫐🍓🩵\n\n🌥️",
+      "images": [
+        "assets/images/yuna/2026-11-27_DgPPliMEo60_01.jpg",
+        "assets/images/yuna/2026-11-27_DgPPliMEo60_02.jpg",
+        "assets/images/yuna/2026-11-27_DgPPliMEo60_03.jpg"
+      ],
+      "tags": [
+        "日常",
+        "渡假",
+        "美食"
+      ],
+      "postUrl": "https://www.instagram.com/p/DgPPliMEo60/",
+      "sourceFile": "raw/yuna/yuna_1127_1.mhtml"
+    },
+    {
+      "id": "chaeryeong-2026-11-27-DgOxdtVExVL",
+      "memberId": "chaeryeong",
+      "date": "2026-11-27",
+      "mediaType": "carousel",
+      "originalText": "🌸🌼\n\n@sosoeazy.official\n#광고 #sosoeazy #소소이지",
+      "translatedText": "🌸🌼\n\n@sosoeazy.official\n#廣告 #sosoeazy #소소이지",
+      "images": [
+        "assets/images/chaeryeong/2026-11-27_DgOxdtVExVL_01.jpg",
+        "assets/images/chaeryeong/2026-11-27_DgOxdtVExVL_02.jpg"
+      ],
+      "tags": [
+        "日常",
+        "合作",
+        "穿搭"
+      ],
+      "postUrl": "https://www.instagram.com/p/DgOxdtVExVL/",
+      "sourceFile": "raw/chaeryeong/chaeryeong_1127.mhtml"
+    },
+    {
+      "id": "yuna-2026-11-25-DgKSJ_OEhJk",
+      "memberId": "yuna",
+      "date": "2026-11-25",
+      "mediaType": "carousel",
+      "originalText": "햇살이 밝아서 좋았던 날☀️",
+      "translatedText": "陽光很燦爛心情很好的一天☀️",
+      "images": [
+        "assets/images/yuna/2026-11-25_DgKSJ_OEhJk_01.jpg",
+        "assets/images/yuna/2026-11-25_DgKSJ_OEhJk_02.jpg",
+        "assets/images/yuna/2026-11-25_DgKSJ_OEhJk_03.jpg"
+      ],
+      "tags": [
+        "日常",
+        "晴天"
+      ],
+      "postUrl": "https://www.instagram.com/p/DgKSJ_OEhJk/",
+      "sourceFile": "raw/yuna/yuna_1127.mhtml"
+    },
+    {
+      "id": "yuna-2026-11-25-DgKNKuekvpH",
+      "memberId": "yuna",
+      "date": "2026-11-25",
+      "mediaType": "carousel",
+      "originalText": "",
+      "translatedText": "（無文字貼文）",
+      "images": [
+        "assets/images/yuna/2026-11-25_DgKNKuekvpH_01.jpg",
+        "assets/images/yuna/2026-11-25_DgKNKuekvpH_02.jpg",
+        "assets/images/yuna/2026-11-25_DgKNKuekvpH_03.jpg"
+      ],
+      "tags": [
+        "日常",
+        "穿搭"
+      ],
+      "postUrl": "https://www.instagram.com/p/DgKNKuekvpH/",
+      "sourceFile": "raw/yuna/yuna_1126.mhtml"
+    },
+    {
+      "id": "chaeryeong-2026-11-24-DgHC--Yn4MK",
+      "memberId": "chaeryeong",
+      "date": "2026-11-24",
+      "mediaType": "carousel",
+      "originalText": "#ad #raive #레이브",
+      "translatedText": "#廣告 #raive #레이브",
+      "images": [
+        "assets/images/chaeryeong/2026-11-24_DgHC--Yn4MK_01.jpg",
+        "assets/images/chaeryeong/2026-11-24_DgHC--Yn4MK_02.jpg",
+        "assets/images/chaeryeong/2026-11-24_DgHC--Yn4MK_03.jpg"
+      ],
+      "tags": [
+        "時尚",
+        "穿搭",
+        "合作"
+      ],
+      "postUrl": "https://www.instagram.com/p/DgHC--Yn4MK/",
+      "sourceFile": "raw/chaeryeong/chaeryeong_1124.mhtml"
+    },
+    {
+      "id": "lia-2026-11-24-DgF89TYEhCl",
+      "memberId": "lia",
+      "date": "2026-11-24",
+      "mediaType": "carousel",
+      "originalText": "잠시 여름으로🌺",
+      "translatedText": "暫時回到夏天🌺",
+      "images": [
+        "assets/images/lia/2026-11-24_DgF89TYEhCl_01.jpg",
+        "assets/images/lia/2026-11-24_DgF89TYEhCl_02.jpg",
+        "assets/images/lia/2026-11-24_DgF89TYEhCl_03.jpg"
+      ],
+      "tags": [
+        "日常",
+        "夏日",
+        "旅遊"
+      ],
+      "postUrl": "https://www.instagram.com/p/DgF89TYEhCl/",
+      "sourceFile": "raw/lia/lia_1124.mhtml"
+    },
     {
       "id": "chaeryeong-2026-11-21-Df_Lbgajmwm",
       "memberId": "chaeryeong",
